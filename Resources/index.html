@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script type="text/javascript" src="jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="entourage-jquery-3.0.js"></script>
+    <script type="text/ruby" src="terminal/utils.rb"></script>
+    
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <style type="text/css" media="screen">
+      #static_methods, #instance_methods{ border: solid 1px #000; background: #ffc;}
+      body{ background: #ffd; }
+    </style>
+  </head>
+  
+  
+  <script type="text/javascript">
+    function showInfo(someInfo){
+      window.document.getElementById('output').innerHTML = someInfo;
+    }
+  </script>
+  
+  <script type="text/ruby">
+  def evalString
+    require 'rubygems'
+    Gem.use_paths("/opt/ruby-enterprise-1.8.6-20090610/lib/ruby/gems/1.8")
+    string_to_eval = window.document.getElementById('input_string').value
+    result = eval(string_to_eval)
+    
+    window.document.getElementById('output_string').value = result
+  end
+  
+  window.introspectObject = introspectObject
+  </script>
+  
+  <script type="text/javascript" charset="utf-8">
+    function loadScript(value){
+      window.document.getElementById('input_string').value = "call_to_script('" + value +"')"
+    }
+  </script>
+  
+  <body>
+    <div class="container_16">
+      <div class="grid_16">
+        <h1 id="branding">
+          <a href='#'>PlayWithTitanium</a>
+        </h1>
+      </div>
+    <div class='grid_16'>
+      <div class='box'>
+        <h3>try e.g. "call_to_script('active_record_test.rb')"</h3>
+        <select onchange='loadScript(this.value);return false;'>
+          <option value="">SELECT A SCRIPT</option>
+          <option value='active_record_test.rb'>active_record_test.rb</option>
+          <option value='check_time.rb'>check_time.rb</option>
+          <option value='erector_test.rb'>erector_test.rb</option>
+        </select>
+      </div>
+      <p class='block'>
+        <label>Input Area</label><br/>
+        <textarea id='input_string' rows='6' cols='80'></textarea><br/>
+        <button onclick="evalString()">Evaluate</button>
+      </p>
+      
+      <div id="output"></div>
+      <p>
+        <label>Output Area</label><br/>
+        <textarea id='output_string' rows='6' cols='80'></textarea> 
+      </p>
+    </div>
+  </body>
+</html>
